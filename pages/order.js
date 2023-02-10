@@ -1,11 +1,31 @@
 
 import { useRouter } from "next/router";
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 
-const Order = ({ props, resdata }) => {
+const Order = () => {
   const router = useRouter();
-  const [data, setData] = useState(resdata?.order);
-  const [products, setProducts] = useState(resdata?.order?.products);
+  const {
+    query: { orderid },
+  } = router;
+  const [data, setData] = useState();
+  const [products, setProducts] = useState();
+  useEffect(() => {
+
+    const fetcher=async()=>{
+      let res = await fetch(`/api/getorder`, {
+        method: "POST", // or 'PUT'
+    
+        body: orderid,
+      });
+      const resdata = await res.json();
+      return resdata
+    }
+    setData(fetcher);
+    setProducts(data?.products);
+    
+
+  }, [data, orderid])
+  
   
   const date = new Date(data.createdAt)
   let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -109,16 +129,16 @@ const Order = ({ props, resdata }) => {
     </div>
   );
 };
-export async function getServerSideProps(context) {
-  let res = await fetch(`/api/getorder`, {
-    method: "POST", // or 'PUT'
+// export async function getServerSideProps(context) {
+//   let res = await fetch(`/api/getorder`, {
+//     method: "POST", // or 'PUT'
 
-    body: context.query.orderid,
-  });
-  const resdata = await res.json();
-  return {
-    props: { resdata: JSON.parse(JSON.stringify(resdata)) }, // will be passed to the page component as props
-  };
-}
+//     body: context.query.orderid,
+//   });
+//   const resdata = await res.json();
+//   return {
+//     props: { resdata: JSON.parse(JSON.stringify(resdata)) }, // will be passed to the page component as props
+//   };
+// }
 
 export default Order;
