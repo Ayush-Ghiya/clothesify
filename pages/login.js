@@ -67,7 +67,7 @@ const Login = () => {
         });
         setTimeout(() => {
           
-          router.push(process.env.NEXT_PUBLIC_HOST)
+          router.push('/')
         }, 2000);
     }else{
       toast.error(response.error, {
