@@ -30,7 +30,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { name, email, password };
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/register`, {
+    let res = await fetch(`/api/register`, {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
