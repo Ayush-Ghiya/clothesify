@@ -1,41 +1,25 @@
+import mongoose from "mongoose";
+import OrderB from "../models/OrderB";
 
-import { useRouter } from "next/router";
-import React, {  useEffect, useState } from "react";
+import React, { useState } from "react";
 
-const Order = () => {
-  const router = useRouter();
-  const {
-    query: { orderid },
-  } = router;
-  const [data, setData] = useState();
-  const [products, setProducts] = useState();
-  useEffect(() => {
+const Order = ({ props, resdata }) => {
+  const [data, setData] = useState(resdata);
+  const [products, setProducts] = useState(resdata?.products);
 
-    const fetcher=async()=>{
-      let res = await fetch(`/api/getorder`, {
-        method: "POST", // or 'PUT'
-    
-        body: orderid,
-      });
-      const resdata = await res.json();
-      return resdata
-    }
-    setData(fetcher);
-    setProducts(data?.products);
-    
-
-  }, [data, orderid])
-  
-  
-  const date = new Date(data.createdAt)
-  let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  if (!router.isFallback && !resdata?.order) {
-    return (<div>Loading</div>)
+  if (!data) {
+    return <div>Loading</div>;
   }
+  let options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const date = new Date(data.createdAt);
 
   return (
-    
-     <div className="mt-8">
+    <div className="mt-8">
       <section className="text-gray-600 body-font overflow-hidden ">
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
@@ -52,66 +36,65 @@ const Order = () => {
                 status is <code>{data.status}</code>.
               </p>
               <p className="leading-relaxed mb-4">
-                Order placed ON: <code>{date.toLocaleString("en-US",options)}</code>.
+                Order placed ON:{" "}
+                <code>{date.toLocaleString("en-US", options)}</code>.
               </p>
-             
 
-<div className="overflow-auto lg:overflow-visible">
-  <table className="min-w-full">
-    <thead className="">
-      <tr>
-        <th
-          scope="col"
-          className="text-sm font-medium  text-gray-900 px-2 py-4 text-left"
-        >
-          Item Description
-        </th>
+              <div className="overflow-auto lg:overflow-visible">
+                <table className="min-w-full">
+                  <thead className="">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium  text-gray-900 px-2 py-4 text-left"
+                      >
+                        Item Description
+                      </th>
 
-        <th
-          scope="col"
-          className="text-sm font-medium text-gray-900 px-2 py-4 text-center"
-        >
-          Quantity
-        </th>
-        <th
-          scope="col"
-          className="text-sm font-medium text-gray-900 px-2 py-4 text-center"
-        >
-          Item Total
-        </th>
-        
-      </tr>
-    </thead>
-    <tbody>
-              {Object.keys(products).map((product) => {
-                return (
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-gray-900 px-2 py-4 text-center"
+                      >
+                        Quantity
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-gray-900 px-2 py-4 text-center"
+                      >
+                        Item Total
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(products).map((product) => {
+                      return (
                         <tr
-                        key={products[product]}
+                          key={products[product]}
                           className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                         >
                           <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
-                          <img src={products[product].img} alt="" width={50} height={50} className="object-cover"/>
-                       {products[product].name} (
-                      {products[product].size}/
-                      {products[product].variant})
+                            <img
+                              src={products[product].img}
+                              alt=""
+                              width={50}
+                              height={50}
+                              className="object-cover"
+                            />
+                            {products[product].name} ({products[product].size}/
+                            {products[product].variant})
                           </td>
                           <td className="text-sm text-gray-900 font-light px-2 py-4 whitespace-nowrap text-center">
                             {products[product].qty}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-2 py-4 whitespace-nowrap text-center">
-                          ₹
-                       {products[product].price *
-                         products[product].qty}
+                            ₹{products[product].price * products[product].qty}
                           </td>
-                          
                         </tr>
-                           );
-               })}
-                      </tbody>
-                    </table>
-                  </div>
-
-              
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
 
               <div className="flex mt-10">
                 <span className="title-font font-medium text-2xl text-gray-900">
@@ -122,23 +105,25 @@ const Order = () => {
                 </button>
               </div>
             </div>
-            
           </div>
         </div>
       </section>
     </div>
   );
 };
-// export async function getServerSideProps(context) {
-//   let res = await fetch(`/api/getorder`, {
-//     method: "POST", // or 'PUT'
 
-//     body: context.query.orderid,
-//   });
-//   const resdata = await res.json();
-//   return {
-//     props: { resdata: JSON.parse(JSON.stringify(resdata)) }, // will be passed to the page component as props
-//   };
-// }
+export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+    await mongoose.connect(process.env.MONGO_URI);
+  }
+  let resdata = await OrderB.findOneAndUpdate(
+    { orderid: context.query.orderid },
+    { status: "Paid" }
+  );
+
+  return {
+    props: { resdata: JSON.parse(JSON.stringify(resdata)) }, // will be passed to the page component as props
+  };
+}
 
 export default Order;

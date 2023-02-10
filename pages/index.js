@@ -26,17 +26,17 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-wrap -m-4">
-              <div className="xl:w-1/3 md:w-1/2 p-4">
+              <div className="xl:w-1/3 md:w-1/2 w-full p-4 ">
                 <div className="border border-gray-200 p-6 rounded-lg">
                   <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-800 mb-4">
                     <svg
                       stroke="currentColor"
                       fill="none"
-                      stroke-width="2"
+                      strokeWidth="2"
                       viewBox="0 0 24 24"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="text-3xl"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-3xl"
                       height="1em"
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="xl:w-1/3 md:w-1/2 p-4">
+              <div className="xl:w-1/3 md:w-1/2 w-full p-4">
                 <div className="border border-gray-200 p-6 rounded-lg">
                   <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-800 mb-4">
                     <svg
@@ -79,7 +79,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="xl:w-1/3 md:w-1/2 p-4">
+              <div className="xl:w-1/3 md:w-1/2 w-full p-4">
                 <div className="border border-gray-200 p-6 rounded-lg">
                   <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-800 mb-4">
                     <svg
@@ -103,16 +103,16 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="xl:w-1/3 md:w-1/2 p-4">
+              <div className="xl:w-1/3 md:w-1/2 w-full p-4">
                 <div className="border border-gray-200 p-6 rounded-lg">
                   <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-800 mb-4">
                     <svg
                     
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 640 512"
-                      class="text-2xl"
+                      className="text-2xl"
                       height="1.5em"
                       width="1.5em"
                       xmlns="http://www.w3.org/2000/svg"
@@ -128,15 +128,15 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="xl:w-1/3 md:w-1/2 p-4">
+              <div className="xl:w-1/3 md:w-1/2 w-full p-4">
                 <div className="border border-gray-200 p-6 rounded-lg">
                   <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-800 mb-4">
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 320 512"
-                      class="text-xl"
+                      className="text-xl"
                       height="1em"
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="xl:w-1/3 md:w-1/2 p-4">
+              <div className="xl:w-1/3 md:w-1/2 w-full p-4">
                 <div className="border border-gray-200 p-6 rounded-lg">
                   <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-800 mb-4">
                     <svg
