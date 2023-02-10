@@ -1,19 +1,21 @@
-/* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
-import Link from "next/link";
+
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
 const Order = ({ props, resdata }) => {
+  const router = useRouter();
   const [data, setData] = useState(resdata?.order);
   const [products, setProducts] = useState(resdata?.order?.products);
-  const router = useRouter();
   
   const date = new Date(data.createdAt)
   let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  if (!router.isFallback && !resdata?.order) {
+    return (<div>Loading</div>)
+  }
 
   return (
-    <div className="mt-8">
+    
+     <div className="mt-8">
       <section className="text-gray-600 body-font overflow-hidden ">
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
@@ -32,17 +34,7 @@ const Order = ({ props, resdata }) => {
               <p className="leading-relaxed mb-4">
                 Order placed ON: <code>{date.toLocaleString("en-US",options)}</code>.
               </p>
-              {/* <div className="flex mb-4">
-                <a className="flex-grow  text-center w-3/6  border-b-2 border-gray-300 py-2 text-lg px-2">
-                  Item Description
-                </a>
-                <a className="flex-grow  text-center w-1/6 border-b-2 border-gray-300 py-2 text-lg px-2">
-                  Quantity
-                </a>
-                <a className="flex-grow text-center  w-1/6 border-b-2 border-gray-300 py-2 text-lg px-2">
-                  Item Total
-                </a>
-              </div> */}
+             
 
 <div className="overflow-auto lg:overflow-visible">
   <table className="min-w-full">
