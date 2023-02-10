@@ -5,12 +5,10 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const Order = ({ props, resdata }) => {
-  const [data, setData] = useState(resdata.order);
-  
+  const [data, setData] = useState(resdata?.order);
+  const [products, setProducts] = useState(resdata?.order?.products);
   const router = useRouter();
-  const {
-    query: { orderid },
-  } = router;
+  
   const date = new Date(data.createdAt)
   let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -73,25 +71,25 @@ const Order = ({ props, resdata }) => {
       </tr>
     </thead>
     <tbody>
-              {Object.keys(data.products).map((product) => {
+              {Object.keys(products).map((product) => {
                 return (
                         <tr
-                        key={data.products[product]}
+                        key={products[product]}
                           className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                         >
                           <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
-                          <img src={data.products[product].img} alt="" width={50} height={50} className="object-cover"/>
-                       {data.products[product].name} (
-                      {data.products[product].size}/
-                      {data.products[product].variant})
+                          <img src={products[product].img} alt="" width={50} height={50} className="object-cover"/>
+                       {products[product].name} (
+                      {products[product].size}/
+                      {products[product].variant})
                           </td>
                           <td className="text-sm text-gray-900 font-light px-2 py-4 whitespace-nowrap text-center">
-                            {data.products[product].qty}
+                            {products[product].qty}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-2 py-4 whitespace-nowrap text-center">
                           ₹
-                       {data.products[product].price *
-                         data.products[product].qty}
+                       {products[product].price *
+                         products[product].qty}
                           </td>
                           
                         </tr>
@@ -112,11 +110,7 @@ const Order = ({ props, resdata }) => {
                 </button>
               </div>
             </div>
-            {/* <img
-              alt="ecommerce"
-              className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-              src="https://dummyimage.com/400x400"
-            /> */}
+            
           </div>
         </div>
       </section>
