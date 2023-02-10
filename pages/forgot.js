@@ -24,7 +24,7 @@ const Forgot = () => {
         sendMail: false,
       };
       let res = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/forgotpassword`,
+        `/api/forgotpassword`,
         {
           method: "POST", // or 'PUT'
           headers: {
@@ -49,7 +49,7 @@ const Forgot = () => {
       sendMail: true,
     };
     let res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/forgotpassword`,
+      `/api/forgotpassword`,
       {
         method: "POST", // or 'PUT'
         headers: {

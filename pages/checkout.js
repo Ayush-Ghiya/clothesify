@@ -37,7 +37,7 @@ const Checkout = ({ cart, subTotal, addToCart, removeFromCart, clearCart }) => {
   }, []);
   const fetcher=async(user)=>{
     let data = { jwt:user.token};
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
+    let res = await fetch(`/api/getuser`, {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Checkout = ({ cart, subTotal, addToCart, removeFromCart, clearCart }) => {
     }
   }, [name, email, phone, pincode, address]);
 const getPincode = async(pincode)=>{
-  let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
+  let pins = await fetch(`/api/pincode`);
         let pinsJson = await pins.json();
         if (Object.keys(pinsJson).includes(pincode)) {
           setCity(pinsJson[pincode][0]);
@@ -114,7 +114,7 @@ const getPincode = async(pincode)=>{
       phone,
       name,
     };
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/addorders`, {
+    let res = await fetch(`/api/addorders`, {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",

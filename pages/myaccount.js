@@ -35,7 +35,7 @@ const Myaccount = ({logout}) => {
 
   const fetcher=async(user)=>{
     let data = { jwt:user.token};
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
+    let res = await fetch(`/api/getuser`, {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const Myaccount = ({logout}) => {
   const handleUserSubmit = async() =>{
     
     let data = { jwt:user.token,address,name,phone,pincode};
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser`, {
+    let res = await fetch(`/api/updateuser`, {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const Myaccount = ({logout}) => {
   const handlePasswordSubmit = async() =>{
     
     let data = { jwt:user.token,password,currentpassword,cpassword};
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updatepassword`, {
+    let res = await fetch(`/api/updatepassword`, {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",

@@ -124,7 +124,7 @@ const Order = ({ props, resdata }) => {
   );
 };
 export async function getServerSideProps(context) {
-  let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getorder`, {
+  let res = await fetch(`/api/getorder`, {
     method: "POST", // or 'PUT'
 
     body: context.query.orderid,

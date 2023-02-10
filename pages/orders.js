@@ -8,7 +8,7 @@ const Orders = () => {
   const [allorders, setAllorders] = useState();
     useEffect(() => {
       const fetchOrders = async()=>{
-        let a =  await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/myorders`, {
+        let a =  await fetch(`/api/myorders`, {
           method: "POST", // or 'PUT'
           headers:{
             'Content-Type' : 'application/json',
